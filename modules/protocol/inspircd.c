@@ -816,7 +816,13 @@ m_ping(struct sourceinfo *si, int parc, char *parv[])
 {
 	// reply to PINGs
 	if (parc == 1)
-		sts(":%s PONG %s", me.numeric, parv[0]);
+  {
+    if(parv[0] != si->s->sid) {
+      sts(":%s PONG %s", me.numeric, si->s->sid);
+    } else {
+      sts(":%s PONG %s", me.numeric, parv[0]);
+    }
+  }
 	else if (parc == 2)
 		sts(":%s PONG %s :%s", me.numeric, parv[1], parv[0]);
 }
